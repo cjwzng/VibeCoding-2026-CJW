@@ -1,0 +1,264 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fashion 404 | Designer Collection</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- 상단 영역 -->
+    <header>
+        <div class="container header-inner">
+            <div class="logo">
+                <span class="f">F</span>ASHION <span class="n">404</span>
+            </div>
+
+
+
+
+
+
+
+
+                        <div class="header-right">
+                <nav>
+                    <ul class="menu-list">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Show</a></li>
+                        <li><a href="#">Gallery</a></li>
+                        <li><a href="#">Community</a></li>
+                    </ul>
+                </nav>
+                <button id="theme-toggle" class="theme-btn" aria-label="Toggle Dark Mode">
+                    <span class="mode-icon">🌙</span>
+                </button>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- 히어로 배너 슬라이더 -->
+    <section class="slider-container">
+        <div class="slider-wrapper" id="slider">
+            <!-- 슬라이드 1 -->
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1445205170230-053b830c6050?q=80&w=1471&auto=format&fit=crop');">
+                <div class="slide-overlay">
+                    <div class="slide-content">
+                        <p>SEASON CONCEPT</p>
+                        <h2>THE ERROR<br>COLLECTION</h2>
+                    </div>
+                </div>
+            </div>
+            <!-- 슬라이드 2 -->
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1469334031218-e382a71b716b?q=80&w=1470&auto=format&fit=crop');">
+                <div class="slide-overlay">
+                    <div class="slide-content">
+                        <p>NEW ARRIVALS</p>
+                        <h2>CYBERPUNK<br>MINIMALISM</h2>
+                    </div>
+                </div>
+            </div>
+            <!-- 슬라이드 3 -->
+            <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=1474&auto=format&fit=crop');">
+                <div class="slide-overlay">
+                    <div class="slide-content">
+                        <p>2024 SHOWCASE</p>
+                        <h2>FUTURE<br>ARCHIVE</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slider-dots" id="dots">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
+    </section>
+
+    <!-- 메인 영역 (이벤트 파트) -->
+
+
+    <main>
+        <section class="event-section container">
+            <h2 class="section-title">Current Events</h2>
+            <div class="card-grid">
+                <!-- 카드 1 -->
+                <div class="card">
+                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1539109132314-34759616717d?q=80&w=600&auto=format&fit=crop');"></div>
+                    <div class="card-content">
+                        <span class="badge hotpink">2024 SS</span>
+                        <h3>Midnight Neon</h3>
+                        <p>도시의 밤을 밝히는 강렬한 핫핑크 컬렉션.</p>
+                    </div>
+                </div>
+                <!-- 카드 2 -->
+                <div class="card">
+                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=600&auto=format&fit=crop');"></div>
+                    <div class="card-content">
+                        <span class="badge darkblue">Exclusive</span>
+                        <h3>Deep Ocean</h3>
+                        <p>심해의 고요함을 닮은 다크블루 실루엣.</p>
+                    </div>
+                </div>
+                <!-- 카드 3 -->
+                <div class="card">
+                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=600&auto=format&fit=crop');"></div>
+                    <div class="card-content">
+                        <span class="badge hotpink">Event</span>
+                        <h3>Error Collection</h3>
+                        <p>정형화된 틀을 깨는 Fashion 404만의 실험 정신.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 하단 영역 -->
+    <footer>
+        <div class="container footer-inner">
+            <div class="footer-logo">FASHION 404</div>
+            <div class="company-info">
+                <p>Designer. Hong Gil Dong</p>
+                <p>Email: contact@fashion404.com | Tel: 02-1234-5678</p>
+                <p>&copy; 2024 Fashion 404. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // --- Dark Mode Logic ---
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.body;
+        const modeIcon = themeToggle.querySelector('.mode-icon');
+
+        // Check saved theme or system preference
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+            enableDarkMode();
+        } else {
+            enableLightMode();
+        }
+
+        themeToggle.addEventListener('click', () => {
+            if (body.getAttribute('data-theme') === 'dark') {
+                enableLightMode();
+            } else {
+                enableDarkMode();
+            }
+        });
+
+        function enableDarkMode() {
+            body.setAttribute('data-theme', 'dark');
+            modeIcon.textContent = '☀️';
+            localStorage.setItem('theme', 'dark');
+        }
+
+        function enableLightMode() {
+            body.removeAttribute('data-theme');
+            modeIcon.textContent = '🌙';
+            localStorage.setItem('theme', 'light');
+        }
+
+        // --- Slider Logic ---
+        const slider = document.getElementById('slider');
+        const dots = document.querySelectorAll('.dot');
+        let currentSlide = 0;
+        let isDragging = false;
+        let startPos = 0;
+        let currentTranslate = 0;
+        let prevTranslate = 0;
+        let animationID;
+        let autoPlayInterval;
+        let resumeTimeout;
+
+        function startAutoPlay() {
+            stopAutoPlay();
+            autoPlayInterval = setInterval(() => {
+                currentSlide = (currentSlide + 1) % 3;
+                goToSlide(currentSlide);
+            }, 3000);
+        }
+
+        function stopAutoPlay() {
+            clearInterval(autoPlayInterval);
+        }
+
+        function requestResume() {
+            clearTimeout(resumeTimeout);
+            resumeTimeout = setTimeout(startAutoPlay, 5000);
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            currentTranslate = currentSlide * -window.innerWidth / 1; // Simplification for responsive width
+            // More robust: use percentage
+            slider.style.transform = `translateX(-${currentSlide * 33.333}%)`;
+            
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentSlide);
+            });
+        }
+
+        // Interaction
+        slider.addEventListener('mousedown', dragStart);
+        slider.addEventListener('touchstart', dragStart);
+        slider.addEventListener('mouseup', dragEnd);
+        slider.addEventListener('mouseleave', dragEnd);
+        slider.addEventListener('touchend', dragEnd);
+        slider.addEventListener('mousemove', dragAction);
+        slider.addEventListener('touchmove', dragAction);
+
+        function dragStart(e) {
+            stopAutoPlay();
+            isDragging = true;
+            startPos = getPositionX(e);
+            slider.style.transition = 'none';
+        }
+
+        function dragAction(e) {
+            if (!isDragging) return;
+            const currentPosition = getPositionX(e);
+            const diff = currentPosition - startPos;
+            const movePercent = (diff / window.innerWidth) * 100;
+            const translate = -(currentSlide * 33.333) + (movePercent / 3);
+            slider.style.transform = `translateX(${translate}%)`;
+        }
+
+        function dragEnd() {
+            if (!isDragging) return;
+            isDragging = false;
+            slider.style.transition = 'transform 0.5s ease-out';
+            
+            const movedBy = (getPositionX(event) - startPos);
+            if (movedBy < -100 && currentSlide < 2) currentSlide++;
+            if (movedBy > 100 && currentSlide > 0) currentSlide--;
+            
+            goToSlide(currentSlide);
+            requestResume();
+        }
+
+        function getPositionX(e) {
+            return e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
+        }
+
+        // Dot navigation
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                stopAutoPlay();
+                goToSlide(index);
+                requestResume();
+            });
+        });
+
+        // Initialize
+        startAutoPlay();
+    </script>
+</body>
+
+
+</html>
