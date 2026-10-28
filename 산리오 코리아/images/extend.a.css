@@ -1,0 +1,142 @@
+/**********************************************************************************
+	TABS
+**********************************************************************************/
+.tab-content,.tab-con {
+	display:none;
+	padding:70px;
+	background:#fff;
+}
+
+.tab-content.active, .tab-con.current {
+	display: inherit;
+}
+
+@media (min-width: 769px) {
+	.tabs-wrap .btn-open {
+		display:none;
+	}
+
+	ul.tabs {
+		width:100%;
+	}
+
+	ul.tabs:before, ul.tabs:after {
+	  display: table;
+	  content: " ";
+	}
+
+	ul.tabs:after {
+	  clear: both;
+	}
+
+	ul.tabs li.select {
+		display:none;
+	}
+
+	ul.tabs li {
+		float:left;
+		display: inline-block;
+		/*padding:20px 10px;*/
+		text-align:center;
+		cursor: pointer;
+		background:#ddd;
+	}
+
+	ul.tabs li.current {
+		background:#fff;
+		border-radius:25px 25px 0 0;
+	}
+
+	/* mr 추가 */
+	ul.tabs.category{background:#ddd;border-radius:25px 25px 0 0;overflow:hidden;}
+	ul.tabs.col7 li{width:14.28%;}
+}
+
+@media (max-width: 768px) {
+	.tabs-wrap {
+		position:relative;
+	}
+
+	.tabs-wrap .btn-open {
+		width:100%;
+		text-align:left;
+		padding:10px;
+		border-radius: 5px;
+		background: #fafafa;
+		cursor: pointer;
+		/*-webkit-transition: all 0.3s ease-out;
+		-moz-transition: all 0.3s ease-out;
+		-ms-transition: all 0.3s ease-out;
+		-o-transition: all 0.3s ease-out;
+		transition: all 0.3s ease-out;*/
+	}
+
+	.tabs-wrap .btn-open:after {
+		content: "";
+		width: 0;
+		height: 0;
+		position: absolute;
+		top: 50%;
+		right: 15px;
+		margin-top: -3px;
+		border-width: 6px 6px 0 6px;
+		border-style: solid;
+		border-color: #0ce0ce transparent;
+	}
+
+	.tabs-wrap.active .btn-open {
+		border-radius: 5px 5px 0 0;
+		background: #0ce0ce;
+		color:#fff;
+	}
+
+	.tabs-wrap.active .btn-open:after {
+		border-color: #fff transparent;
+	}
+
+	ul.tabs {
+		position:absolute;
+		top:100%;
+		left:0;
+		right:0;
+		z-index:1;
+		background:#fff;
+		display:none;
+		border:1px solid #efefef;
+		border-top:0;
+	}
+
+	.tabs-wrap.active ul.tabs {
+		display:inherit;
+	}
+
+	ul.tabs li {
+		padding:20px 10;
+		cursor:pointer;
+		background:#ddd;
+		color:#555;
+		position:relative;
+	}
+
+	ul.tabs li.active {
+		background: #fafafa;
+		color:#444;
+	}
+
+	ul.tabs li.active:after {
+		content: "";
+		width: 0;
+		height: 0;
+		position: absolute;
+		top: 50%;
+		right: 15px;
+		margin-top: -6px;
+		border-width: 6px 10px 6px 0;
+		border-style: solid;
+		border-color:  transparent #444;
+	}
+
+	ul.tabs li:last-child {
+		border-bottom:0;
+	}
+}

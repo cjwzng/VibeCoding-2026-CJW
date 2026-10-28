@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2026년 하반기 한미그룹 공개채용</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+  <style>
+    /* ===== Design Tokens ===== */
+    :root {
+      --red: #E60012;
+      --red-grad-end: #FF5D32;
+      --black: #000000;
+      --white: #FFFFFF;
+      --font: 'Inter', 'Pretendard', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Malgun Gothic', sans-serif;
+      --ease: 0.2s ease;
+      --wrap: 1440px;
+      --gnb-h: 100px;
+    }
+
+    /* ===== Reset ===== */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: var(--font);
+      color: var(--black);
+      background: var(--white);
+      -webkit-font-smoothing: antialiased;
+      min-width: 1200px;
+    }
+    h1, p, ul { margin: 0; padding: 0; }
+    ul { list-style: none; }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; border: 0; padding: 0; background: none; cursor: pointer; }
+    img { display: block; border: 0; }
+    :focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
+
+    /* ===== Header ===== */
+    .header {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: var(--gnb-h);
+      z-index: 10;
+    }
+    .header__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      max-width: var(--wrap);
+      height: 100%;
+      margin: 0 auto;
+      padding: 0 60px;
+    }
+    .logo { display: block; width: 182px; height: 31px; flex: none; }
+    .logo img { width: 182px; height: 31px; }
+
+    .header__right { display: flex; align-items: center; height: 100%; }
+    .gnb { height: 100%; }
+    .gnb__list { display: flex; gap: 40px; height: 100%; }
+    .gnb__item { display: flex; height: 100%; }
+    .gnb__link {
+      display: flex;
+      align-items: center;
+      height: 100%;
+      font-weight: 600;
+      font-size: 19.1px;
+      line-height: 20px;
+      letter-spacing: -0.4px;
+      color: var(--black);
+      white-space: nowrap;
+      transition: color var(--ease);
+    }
+    .gnb__item:first-child .gnb__link { font-size: 19.4px; }
+    .gnb__link:hover { color: var(--red); }
+
+    /* 지원하기 버튼 */
+    .apply { padding-left: 40px; flex: none; }
+    .btn-apply {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 119px;
+      height: 48px;
+      padding: 13.5px 20px 14.5px;
+      border-radius: 500px;
+      background: var(--red);
+      color: var(--white);
+      font-weight: 600;
+      font-size: 17.4px;
+      line-height: 18px;
+      letter-spacing: -0.36px;
+      white-space: nowrap;
+      box-shadow: inset 0 0 0 2px var(--red);
+      transition: background-color var(--ease), color var(--ease);
+    }
+    .btn-apply svg { width: 7px; height: 12px; flex: none; }
+    .btn-apply:hover { background: var(--white); color: var(--red); }
+
+    /* ===== Main Visual ===== */
+    .main-visual {
+      position: relative;
+      height: 900px;
+      min-height: 720px;
+      overflow: hidden;
+      background: #FFF1EC url('images/mv_bg_png.png') center / cover no-repeat;
+      isolation: isolate;
+    }
+    .mv-inner {
+      position: relative;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      max-width: var(--wrap);
+      height: 100%;
+      margin: 0 auto;
+      padding-left: 100px;
+    }
+
+    /* 장식 원 */
+    .mv-ring {
+      position: absolute;
+      border-radius: 500px;
+      pointer-events: none;
+    }
+    .mv-ring--glow {
+      z-index: 1;
+      width: 663px; height: 663px;
+      left: 700px; top: 118px;
+      background: radial-gradient(70.71% 70.71% at 50% 50%, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 100%);
+      border: 5px solid var(--white);
+      filter: blur(5px);
+    }
+    .mv-ring--line {
+      z-index: 2;
+      width: 553px; height: 553px;
+      left: 755px; top: 173px;
+      border: 1px solid rgba(255,255,255,0.5);
+    }
+
+    /* 비주얼 스테이지 (Figma Container 1689.6 x 844.8) */
+    .mv-stage {
+      position: absolute;
+      z-index: 3;
+      width: 1689.6px;
+      height: 844.8px;
+      right: -153px;
+      top: calc(50% - 844.8px / 2);
+      pointer-events: none;
+    }
+    .mv-stage > * { position: absolute; display: block; }
+    .mv-stage img { object-fit: contain; }
+
+    .mv-micro { width: 289.52px; height: 221.76px; left: 862.4px;  top: 124.08px; }
+    .mv-char1 { width: 253.44px; height: 395.12px; left: 911.68px; top: 267.52px; }
+    .mv-char2 { width: 181.28px; height: 381.04px; left: 1133.44px; top: 265.76px; }
+    .mv-char3 { width: 216.48px; height: 262.24px; left: 836px;    top: 441.76px; }
+    .mv-char4 { width: 292.16px; height: 206.8px;  left: 1192.4px; top: 462.88px; }
+
+    /* 반짝이 별 (mv_star 에셋 미제공 → 인라인 SVG) */
+    .mv-star--1 { width: 17.6px;  height: 16.72px; left: 1018.16px; top: 209.44px; color: #BFE6FF; }
+    .mv-star--2 { width: 22.88px; height: 23.76px; left: 836.88px;  top: 441.76px; color: #A774F5; }
+    .mv-star--3s { width: 21.12px; height: 21.12px; left: 1411.52px; top: 447.04px; color: #FFC62A; }
+    .mv-star--3 { width: 34.32px; height: 35.2px;  left: 1429.12px; top: 404.8px;  color: #FFC62A; }
+    .mv-star--4 { width: 23.76px; height: 24.64px; left: 1257.52px; top: 221.76px; color: #F2512B; }
+    .mv-star svg { width: 100%; height: 100%; fill: currentColor; display: block; }
+
+    /* 카피 영역 */
+    .mv-copy {
+      position: relative;
+      z-index: 4;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      width: 560px;
+      gap: 80px;
+    }
+    .mv-text { display: flex; flex-direction: column; align-items: flex-start; gap: 31.9px; width: 442px; }
+    .mv-eyebrow {
+      font-weight: 700;
+      font-size: 31.1px;
+      line-height: 45px;
+      letter-spacing: -0.64px;
+      white-space: nowrap;
+    }
+    .mv-title { display: flex; flex-direction: column; font-weight: 800; }
+    .mv-title__em {
+      font-size: 72.3px;
+      line-height: 76px;
+      letter-spacing: -1.76px;
+      white-space: nowrap;
+    }
+    .mv-title__sub {
+      font-size: 45.8px;
+      line-height: 72px;
+      letter-spacing: -1.12px;
+      white-space: nowrap;
+    }
+    .mv-period {
+      font-weight: 500;
+      font-size: 19.2px;
+      line-height: 28px;
+      letter-spacing: -0.4px;
+      white-space: nowrap;
+    }
+
+    /* 모집직무 바로가기 CTA (그라디언트는 transition 불가 → 오버레이 페이드로 반전) */
+    .btn-cta {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 303px;
+      max-width: 303px;
+      height: 72px;
+      padding: 18.7px 64px 19.3px;
+      border-radius: 500px;
+      background: linear-gradient(90deg, var(--red) 0%, var(--red-grad-end) 100%);
+      color: var(--white);
+      font-weight: 600;
+      font-size: 22.7px;
+      line-height: 34px;
+      letter-spacing: -0.48px;
+      white-space: nowrap;
+      isolation: isolate;
+      transition: color var(--ease);
+    }
+    .btn-cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      border-radius: inherit;
+      background: var(--white);
+      box-shadow: inset 0 0 0 2px var(--red);
+      opacity: 0;
+      transition: opacity var(--ease);
+    }
+    .btn-cta:hover { color: var(--red); }
+    .btn-cta:hover::before { opacity: 1; }
+
+    /* 스크롤 버튼 */
+    .mv-scroll {
+      position: absolute;
+      z-index: 5;
+      left: 50%;
+      bottom: 64px;
+      width: 80px;
+      height: 80px;
+      margin-left: -40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 500px;
+      background: rgba(255,255,255,0.1);
+      box-shadow: inset 4px 4px 10px rgba(255,255,255,0.4), inset -4px -4px 10px rgba(0,0,0,0.1);
+      -webkit-backdrop-filter: blur(5px);
+      backdrop-filter: blur(5px);
+      isolation: isolate;
+      transition: background-color var(--ease);
+    }
+    .mv-scroll::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      padding: 2px;
+      background: linear-gradient(132.3deg, rgba(255,255,255,0.8) 12.7%, rgba(255,255,255,0) 86.3%);
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+    .mv-scroll:hover { background: rgba(255,255,255,0.35); }
+    .mv-scroll svg { width: 40px; height: 40px; position: relative; z-index: 1; }
+    .mv-scroll path { stroke: var(--white); transition: stroke var(--ease); }
+    .mv-scroll:hover path { stroke: var(--red); }
+
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+      overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 공통 SVG 스프라이트 : 4각 별 -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="spark" viewBox="0 0 24 24">
+      <path d="M12 0C12.7 7.2 16.8 11.3 24 12C16.8 12.7 12.7 16.8 12 24C11.3 16.8 7.2 12.7 0 12C7.2 11.3 11.3 7.2 12 0Z"/>
+    </symbol>
+  </svg>
+
+  <!-- 사이트 헤더: 로고 + 주요 메뉴 + 지원하기 -->
+  <header class="header">
+    <div class="header__inner">
+      <a class="logo" href="/" aria-label="한미그룹 공개채용 홈">
+        <img src="images/기본.svg" alt="Hanmi 한미그룹" width="182" height="31">
+      </a>
+
+      <div class="header__right">
+        <nav class="gnb" aria-label="주요 메뉴">
+          <ul class="gnb__list">
+            <li class="gnb__item"><a class="gnb__link" href="#job">직무소개</a></li>
+            <li class="gnb__item"><a class="gnb__link" href="#qualification">지원자격 및 접수방법</a></li>
+            <li class="gnb__item"><a class="gnb__link" href="#schedule">채용설명회 일정</a></li>
+          </ul>
+        </nav>
+        <div class="apply">
+          <a class="btn-apply" href="#apply">
+            지원하기
+            <svg viewBox="0 0 7 12" fill="none" aria-hidden="true">
+              <path d="M1 1L6 6L1 11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- 메인 비주얼 섹션 -->
+    <section class="main-visual" id="main-visual" aria-label="메인 비주얼">
+      <div class="mv-inner">
+
+        <!-- 배경 장식 원 -->
+        <span class="mv-ring mv-ring--glow" aria-hidden="true"></span>
+        <span class="mv-ring mv-ring--line" aria-hidden="true"></span>
+
+        <!-- 캐릭터 / 오브제 / 별 -->
+        <div class="mv-stage">
+          <img class="mv-micro" src="images/mv_micro_png.png" alt="" width="290" height="222">
+          <img class="mv-char1" src="images/mv_char1_png.png" alt="연구복을 입고 플라스크를 든 파란색 캐릭터">
+          <img class="mv-char2" src="images/mv_char2_png.png" alt="위생모와 마스크를 쓴 주황색 캐릭터">
+          <img class="mv-char3" src="images/mv_char3_png.png" alt="서류가방을 든 보라색 캐릭터">
+          <img class="mv-char4" src="images/mv_char4_png.png" alt="노트북 앞에 앉은 노란색 캐릭터">
+
+          <span class="mv-star mv-star--1" aria-hidden="true"><svg><use href="#spark"/></svg></span>
+          <span class="mv-star mv-star--2" aria-hidden="true"><svg><use href="#spark"/></svg></span>
+          <span class="mv-star mv-star--3s" aria-hidden="true"><svg><use href="#spark"/></svg></span>
+          <span class="mv-star mv-star--3" aria-hidden="true"><svg><use href="#spark"/></svg></span>
+          <span class="mv-star mv-star--4" aria-hidden="true"><svg><use href="#spark"/></svg></span>
+        </div>
+
+        <!-- 텍스트 + CTA -->
+        <div class="mv-copy">
+          <div class="mv-text">
+            <p class="mv-eyebrow">2026년 하반기</p>
+            <h1 class="mv-title">
+              <span class="mv-title__em">한미그룹</span>
+              <span class="mv-title__sub">공개채용</span>
+            </h1>
+            <p class="mv-period">모집기간 : <time datetime="2026-09-28">2026.9.28(월)</time> ~ <time datetime="2026-10-18T23:59">2026.10.18(일) 23:59</time>까지</p>
+          </div>
+          <a class="btn-cta" href="#job">모집직무 바로가기!</a>
+        </div>
+
+        <!-- 아래로 스크롤 -->
+        <button class="mv-scroll" type="button" id="scrollDown">
+          <span class="sr-only">아래로 스크롤</span>
+          <svg viewBox="0 0 40 40" fill="none" aria-hidden="true">
+            <path d="M11 16L20 25L29 16" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      var section = document.getElementById('main-visual');
+      var btn = document.getElementById('scrollDown');
+
+      // 아래로 스크롤 버튼: 메인 비주얼 높이만큼 부드럽게 이동
+      btn.addEventListener('click', function () {
+        window.scrollTo({ top: section.offsetHeight, behavior: 'smooth' });
+      });
+
+      // 앵커 링크: 대상 섹션이 있으면 부드럽게 이동
+      document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+        a.addEventListener('click', function (e) {
+          var id = a.getAttribute('href');
+          if (id.length < 2) return;
+          var target = document.querySelector(id);
+          if (target) {
+            e.preventDefault();
+            target.scrollIntoView({ behavior: 'smooth' });
+          }
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

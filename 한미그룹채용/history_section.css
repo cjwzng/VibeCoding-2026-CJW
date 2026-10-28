@@ -1,0 +1,338 @@
+    /* ===== History (미래 비주얼 다음 섹션 : 한미 연혁 타임라인) =====
+       - Single DOM : 데스크탑 2열(라인 기준 좌우 교차) → 태블릿 동일 구조 유동 축소 → 모바일 1열
+       - 데스크탑/태블릿은 clamp() 로 연속 축소, 모바일(600px 이하)만 열 구조가 바뀜
+       - 정렬 모디파이어: --align-end(텍스트가 라인 왼쪽에 붙음) / --align-start(텍스트가 라인 오른쪽에 붙음) */
+    .history {
+      --history-accent: var(--red-grad-end);
+      --history-pt: 124px;
+      --history-side: 100px;
+      --history-gap: clamp(64px, 17.5vw, 180px);   /* 중앙 라인 기준 좌우 컬럼 사이 간격 */
+      --history-line-w: 24px;
+      --history-year-w: clamp(42px, 5.1vw, 52px);
+      --history-count-size: 300px;
+      --history-end-shift: 100px;
+      --history-title-gap: 28px;
+      --history-row-gap: clamp(120px, 14.6vw, 200px);
+      --history-fade-h: 240px;
+      --history-more-overlap: 104px;
+      --history-motion: 0.7s ease;
+      position: relative;
+      isolation: isolate;
+      background: var(--white);
+    }
+
+    /* 접힘/펼침 뷰포트 : max-height 는 JS 가 px 로 지정 (초기 = 전체 높이의 2/3) */
+    .history__viewport {
+      position: relative;
+      overflow: hidden;
+      transition: max-height var(--history-motion);
+    }
+    /* 접힘 상태 하단 페이드아웃 : transparent → #fff (opacity 로 부드럽게 전환) */
+    .history__viewport::after {
+      content: '';
+      position: absolute;
+      z-index: 3;
+      left: 0; right: 0; bottom: 0;
+      height: var(--history-fade-h);
+      background: linear-gradient(180deg, rgba(255,255,255,0) 0%, var(--white) 90%);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--history-motion);
+    }
+    .history.is-collapsed .history__viewport::after { opacity: 1; }
+
+    .history__content { padding-top: var(--history-pt); }
+
+    .history__title {
+      margin: 0 auto var(--history-title-gap);
+      padding: 0 24px;
+      font-size: clamp(26px, 3.7vw, 46px);
+      line-height: 1.6;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      text-align: center;
+      word-break: keep-all;
+    }
+    .history__title-line { display: block; }
+
+    /* 타임라인 : 중앙 세로 라인 = 53th 하단 ~ 100th 상단 */
+    .history__timeline {
+      position: relative;
+      max-width: var(--wrap);
+      margin: 0 auto;
+      padding: 0 var(--history-side);
+    }
+    .history__timeline::before {
+      content: '';
+      position: absolute;
+      z-index: 0;
+      top: calc(var(--history-count-size) * 0.86);      /* 53th 숫자 하단 */
+      bottom: calc(var(--history-count-size) * 0.86);   /* 100th 숫자 상단 */
+      left: 50%;
+      width: var(--history-line-w);
+      margin-left: calc(var(--history-line-w) / -2);
+      background: var(--history-accent);
+    }
+
+    /* 53th / 100th */
+    .history__count {
+      position: relative;
+      z-index: 1;
+      margin: 0;
+      font-size: var(--history-count-size);
+      line-height: 1;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      text-align: center;
+      white-space: nowrap;
+      color: var(--history-accent);
+    }
+    .history__count-unit {
+      margin-left: 0.1em;
+      font-size: 0.46em;
+      letter-spacing: -0.02em;
+    }
+    .history__count--end { left: var(--history-end-shift); }
+    .history__end { position: relative; }
+
+    /* 연대 블록 목록 */
+    .history__items {
+      display: flex;
+      flex-direction: column;
+      gap: var(--history-row-gap);
+      margin: 65px 0 176px;
+      padding: 0;
+      list-style: none;
+    }
+
+    /* 연대 블록 : 데스크탑/태블릿 2열 그리드 */
+    .history__item {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      grid-template-rows: auto 1fr;
+      column-gap: var(--history-gap);
+      row-gap: 44px;
+      align-items: start;
+    }
+    .history__item--align-end   { grid-template-areas: "headline period" "list media"; }
+    .history__item--align-start { grid-template-areas: "period list" "media list"; }
+
+    .history__headline,
+    .history__period,
+    .history__list,
+    .history__media { position: relative; z-index: 1; margin: 0; }
+
+    .history__headline {
+      grid-area: headline;
+      align-self: center;
+      justify-self: end;
+      text-align: right;
+      font-size: clamp(20px, 2.7vw, 28px);
+      line-height: 1.43;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      word-break: keep-all;
+    }
+    .history__period {
+      grid-area: period;
+      font-size: clamp(26px, 3.9vw, 40px);
+      line-height: 1.2;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      white-space: nowrap;
+      color: var(--history-accent);
+    }
+    .history__list {
+      grid-area: list;
+      display: flex;
+      flex-direction: column;
+      gap: 39px;
+      padding: 0;
+    }
+    .history__media { grid-area: media; }
+
+    /* 열 배치 : 라인에 붙는 쪽 / 반대쪽 */
+    .history__item--align-end .history__period,
+    .history__item--align-end .history__media   { justify-self: start; }
+    .history__item--align-start .history__period,
+    .history__item--align-start .history__media { justify-self: end; text-align: right; }
+
+    /* 연도 + 내용 한 줄 */
+    .history__entry {
+      display: flex;
+      align-items: center;
+      gap: clamp(14px, 2.3vw, 24px);
+    }
+    .history__item--align-end .history__entry { flex-direction: row-reverse; }
+    .history__item--align-end .history__text  { text-align: right; }
+    .history__year {
+      flex: none;
+      width: var(--history-year-w);
+      font-size: clamp(16px, 1.95vw, 20px);
+      line-height: 24px;
+      font-weight: 700;
+      text-align: center;
+      font-variant-numeric: tabular-nums;
+    }
+    .history__text {
+      flex: 1;
+      min-width: 0;
+      font-size: clamp(13px, 1.4vw, 15px);
+      line-height: 24px;
+      font-weight: 500;
+      letter-spacing: -0.03em;
+      word-break: keep-all;
+    }
+
+    /* 리스트 하단 점 3개 (연도 열 기준 가운데 정렬) */
+    .history__list::after {
+      content: '';
+      width: var(--history-year-w);
+      height: 42px;
+      margin-top: 9px;
+      background:
+        radial-gradient(circle closest-side, var(--history-accent) 98%, rgba(255,93,50,0)) 50% 0 / 8px 8px no-repeat,
+        radial-gradient(circle closest-side, rgba(255,93,50,.5) 98%, rgba(255,93,50,0)) 50% 17px / 8px 8px no-repeat,
+        radial-gradient(circle closest-side, rgba(255,93,50,.25) 98%, rgba(255,93,50,0)) 50% 34px / 8px 8px no-repeat;
+    }
+    .history__item--align-end .history__list::after { align-self: flex-end; }
+
+    /* 이미지 : 시안 기준 원본의 1/2 크기, 컬럼보다 크면 축소 */
+    .history__img { max-width: 100%; height: auto; }
+    .history__img--products { width: 375px; }
+    .history__img--team     { width: 415px; }
+    .history__img--spectrum { width: 500px; }
+    .history__img--asco     { width: 467px; }
+    .history__img--rolontis { width: 373px; }
+
+    /* 장식 오브제 (데스크탑 전용 시안) */
+    .history__deco {
+      position: absolute;
+      z-index: 0;
+      height: auto;
+      pointer-events: none;
+      user-select: none;
+    }
+    .history__deco--star                { top: -32px;  left: calc(50% + 402px); width: 150px; }
+    .history__deco--beaker              { top: 187px;  left: calc(50% - 584px); width: 163px; }
+    .history__deco--microscope          { top: 252px;  left: calc(50% + 483px); width: 150px; }
+    .history__deco--molecule-blur-right { top: 53px;   left: calc(50% + 540px); width: 200px; }
+    .history__deco--molecule-blur-left  { top: 438px;  left: calc(50% - 760px); width: 180px; }
+    .history__deco--molecule            { top: 243px;  left: calc(50% + 525px); width: 180px; }
+    .history__deco--shadow              { top: 120px;  left: calc(50% - 720px); width: 280px; }
+    .history__deco--char                { top: -140px; left: calc(50% - 639px); width: 210px; }
+
+    /* 마무리 문구 */
+    .history__closing {
+      margin: clamp(40px, 8.6vw, 88px) auto 0;
+      padding: 0 24px;
+      text-align: center;
+      word-break: keep-all;
+    }
+    .history__closing-lead {
+      margin: 0;
+      font-size: clamp(13px, 1.66vw, 17px);
+      line-height: 1.7;
+      font-weight: 500;
+      letter-spacing: -0.03em;
+      color: #555;
+    }
+    .history__closing-copy {
+      margin: 16px 0 0;
+      font-size: clamp(16px, 3vw, 32px);
+      line-height: 1.7;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+    }
+
+    /* 펼치기 / 접기 버튼 : 접힘 상태에서는 페이드 영역 위로 겹쳐 올라감 */
+    .history__more {
+      position: relative;
+      z-index: 4;
+      display: flex;
+      justify-content: center;
+      margin-top: 80px;
+      padding-bottom: 120px;
+      transition: margin-top var(--history-motion);
+    }
+    .history.is-collapsed .history__more { margin-top: calc(var(--history-more-overlap) * -1); }
+    .history__more-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      font-size: 14px;
+      line-height: 20px;
+      font-weight: 600;
+      color: #222;
+      transition: color var(--ease);
+    }
+    .history__more-btn:hover { color: var(--red); }
+    .history__more-icon {
+      width: 24px;
+      height: 24px;
+      transition: transform 0.3s ease;
+    }
+    .history.is-collapsed .history__more-icon { transform: rotate(180deg); }
+
+    /* 장식 오브제는 태블릿/모바일 시안에 없음 */
+    @media (max-width: 1024px) {
+      .history {
+        --history-pt: 140px;
+        --history-side: 36px;
+        --history-count-size: clamp(180px, 28vw, 290px);
+        --history-end-shift: clamp(60px, 9.8vw, 100px);
+        --history-fade-h: 200px;
+      }
+      .history__deco { display: none; }
+    }
+
+    /* Mobile : 1열, 라인 제거, 연대별 좌/우 정렬 교차 (DOM 순서 = 연대 → 제목 → 목록 → 이미지) */
+    @media (max-width: 600px) {
+      .history {
+        --history-pt: 32px;
+        --history-side: 28px;
+        --history-count-size: clamp(110px, 23.3vw, 140px);
+        --history-end-shift: 14px;
+        --history-year-w: 42px;
+        --history-title-gap: 0px;
+        --history-row-gap: 96px;
+        --history-fade-h: 160px;
+        --history-more-overlap: 92px;
+      }
+      .history__title { font-size: clamp(20px, 3.7vw, 24px); }
+      .history__timeline::before { content: none; }
+      .history__items { margin: 36px 0 80px; }
+
+      .history__item {
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: none;
+        row-gap: 20px;
+      }
+      .history__item--align-end   { grid-template-areas: "period" "headline" "list" "media"; }
+      .history__item--align-start { grid-template-areas: "period" "list" "media"; }
+
+      .history__period   { font-size: clamp(18px, 3.3vw, 20px); }
+      .history__headline { font-size: 16px; align-self: start; }
+      .history__year     { font-size: 16px; }
+      .history__text     { font-size: 13px; }
+      .history__list     { gap: 32px; }
+
+      .history__item--align-end .history__period,
+      .history__item--align-end .history__headline,
+      .history__item--align-end .history__media   { justify-self: end; text-align: right; }
+      .history__item--align-start .history__period,
+      .history__item--align-start .history__media { justify-self: start; text-align: left; }
+      .history__media { margin-top: 12px; }
+
+      .history__more { margin-top: 56px; padding-bottom: 80px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .history__viewport,
+      .history__viewport::after,
+      .history__more,
+      .history__more-icon { transition: none; }
+    }

@@ -1,0 +1,86 @@
+/*
+	폰트 정의
+*/
+
+
+@media (max-width: 767px) {
+
+	.ff-stream-wrapper .ff-item:nth-child(n+3) {
+		display:none;
+	}
+
+	/* 모바일 높이 강제 설정 */
+	.ff-stream-wrapper {
+		height: 1024px !important;
+	}
+
+	/*.main_row6 .gmap{min-height:auto; height:calc(100vw - 60px);}*/
+}
+
+
+@media screen and (min-width:600px) and (max-width:1199px){
+    .sub_section .cms_row2 {
+        padding:20vmax 0;
+     }
+}
+
+/*
+.sub_section .cms_row2 {
+	min-height:800px;
+}
+
+.sub_section .cms_row2 .container {
+	position:absolute;
+	width:100%;
+	top:50%;
+	left:50%;
+	transform:translate(-50%, -50%);
+}
+*/
+
+/* 페이스북 강제 수정
+.ff-stream-wrapper {
+	margin-left:-0.75% !important;
+	margin-right:-0.75% !important;
+}
+.ff-stream-wrapper .ff-item {
+	position:relative !important;
+	transform :none !important;
+	transition :none !important;
+	width: 23.5% !important;
+	margin: 0 0.75% 1.5% 0.75% !important;
+}
+
+.ff-stream-wrapper {
+	height:auto !important;
+}
+
+.ff-layout-grid .ff-item-cont {
+	height:auto;
+}
+
+.ff-stream.ff-layout-grid {
+	min-height:auto !important;
+}
+
+@media (max-width: 767px) {
+	.ff-stream-wrapper .ff-item:nth-child(n+3) {
+		display:none;
+	}
+}
+
+@media (max-width: 1024px) {
+	.ff-stream-wrapper .ff-item {
+		position:relative !important;
+		transform :none !important;
+		transition :none !important;
+		width: 48.5% !important;
+		margin-left:0.75% !important;
+		margin-right:0.75% !important;
+	}
+}
+
+.main_row2 {
+	padding-bottom:85px;
+}
+ */
