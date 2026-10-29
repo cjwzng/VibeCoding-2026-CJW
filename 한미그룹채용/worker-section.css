@@ -1,0 +1,275 @@
+    /* ===== Worker (연혁 다음 섹션 : 현직자 인터뷰 "한미에서는 어떤 일을 할까요?") =====
+       - Single DOM : 데스크탑/태블릿 2열 카드 → 모바일(600px 이하) 1열
+       - 시안 기준폭 : 데스크탑 1440 / 태블릿 1024 / 모바일 402(캡처 390 노출)
+       - 수치는 모두 --worker-* 변수로 두고 미디어쿼리에서 값만 교체 (규칙 중복 최소화)
+       - 데스크탑·태블릿은 clamp() 로 연속 축소, 모바일만 열 구조/문장 줄바꿈 방식이 바뀜 */
+    .worker {
+      --worker-accent-from: #F7A98A;
+      --worker-accent-to: #E8603F;
+      --worker-pt: 190px;
+      --worker-pb: 100px;
+      --worker-side: 60px;
+      --worker-gap: 60px;
+      --worker-card-pad: 40px;
+      --worker-card-radius: 28px;
+      --worker-photo-radius: 20px;
+      --worker-title-size: clamp(22px, 3.44vw, 49.5px);
+      --worker-title-gap: 28px;
+      --worker-desc-size: clamp(17px, 1.46vw, 21px);
+      --worker-desc-pad: 24px;
+      --worker-list-mt: 80px;
+      --worker-photo-gap: 32px;
+      --worker-text-size: clamp(16px, 1.36vw, 19.6px);
+      --worker-meta-mt: 24px;
+      --worker-meta-size: clamp(13px, 1.11vw, 16px);
+      --worker-sep-gap: 12px;
+      --worker-arrow: 40px;
+      --worker-cta-mt: 88px;
+      --worker-cta-w: 328px;
+      --worker-cta-h: 72px;
+      --worker-cta-size: 22.7px;
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      /* 우측 중단 / 우하단 은은한 주황 번짐 (데스크탑 시안 전용) + 베이스 #fdf5f2 */
+      background:
+        radial-gradient(ellipse 150px 36px at 100% 51%, rgba(255,140,90,.22), rgba(255,140,90,0) 100%),
+        radial-gradient(ellipse 420px 260px at 100% 100%, rgba(255,160,130,.18), rgba(255,160,130,0) 100%),
+        #fdf5f2;
+    }
+    .worker__inner {
+      position: relative;
+      max-width: var(--wrap);
+      margin: 0 auto;
+      padding: var(--worker-pt) var(--worker-side) var(--worker-pb);
+    }
+
+    /* 제목 영역 : 로고는 제목 첫 글자 기준으로 따라다님 */
+    .worker__head { text-align: center; }
+    .worker__headline {
+      position: relative;
+      width: fit-content;
+      margin: 0 auto;
+    }
+    .worker__logo {
+      position: absolute;
+      z-index: 1;
+      left: -43px;
+      top: -59px;
+      width: 108px;
+      height: auto;
+      pointer-events: none;
+      user-select: none;
+    }
+    .worker__title {
+      margin: 0;
+      font-size: var(--worker-title-size);
+      line-height: 1.4;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      color: #111;
+      word-break: keep-all;
+    }
+    .worker__desc {
+      margin: var(--worker-title-gap) auto 0;
+      padding: 0 var(--worker-desc-pad);
+      font-size: var(--worker-desc-size);
+      line-height: 1.6;
+      font-weight: 400;
+      letter-spacing: -0.03em;
+      color: #333;
+      word-break: keep-all;
+    }
+
+    /* 장식 오브제 : 캐릭터(우상단) / 약병(좌하단) */
+    .worker__char,
+    .worker__bottle {
+      position: absolute;
+      height: auto;
+      pointer-events: none;
+      user-select: none;
+    }
+    .worker__char {
+      z-index: 2;
+      top: 124px;
+      right: 0;
+      width: clamp(210px, 20.1vw, 290px);
+    }
+    .worker__bottle {
+      z-index: 3;
+      left: 0;
+      bottom: 112px;
+      width: clamp(150px, 15.8vw, 228px);
+    }
+
+    /* 현직자 카드 */
+    .worker__list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--worker-gap);
+      margin-top: var(--worker-list-mt);
+    }
+    .worker__card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      padding: var(--worker-card-pad);
+      border: 1px solid rgba(255,255,255,.85);
+      border-radius: var(--worker-card-radius);
+      background: #fdf7f5;
+      box-shadow: 0 10px 30px rgba(230,120,90,.08);
+      transition: transform var(--ease), box-shadow var(--ease);
+    }
+    .worker__card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 36px rgba(230,120,90,.16);
+    }
+    .worker__photo {
+      margin: 0;
+      aspect-ratio: 1100 / 706;
+      overflow: hidden;
+      border-radius: var(--worker-photo-radius);
+    }
+    .worker__img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .worker__text {
+      margin: var(--worker-photo-gap) 0 0;
+      font-size: var(--worker-text-size);
+      line-height: 1.6;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      color: #111;
+      word-break: keep-all;
+    }
+    .worker__line { display: block; }   /* 데스크탑/태블릿 : 문장 2줄 고정 */
+
+    .worker__meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: var(--worker-meta-mt);
+    }
+    .worker__info {
+      display: flex;
+      align-items: center;
+      gap: var(--worker-sep-gap);
+      min-width: 0;
+      font-size: var(--worker-meta-size);
+      line-height: 1.5;
+      letter-spacing: -0.03em;
+      color: #555;
+    }
+    .worker__sep {
+      flex: none;
+      width: 1px;
+      height: 0.8em;
+      background: #999;
+    }
+    /* 화살표 원형 버튼 : 카드 전체를 덮는 링크(::after)로 확장 */
+    .worker__link {
+      flex: none;
+      display: grid;
+      place-items: center;
+      width: var(--worker-arrow);
+      height: var(--worker-arrow);
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--worker-accent-from) 0%, var(--worker-accent-to) 100%);
+      color: var(--white);
+      transition: filter var(--ease);
+    }
+    .worker__link::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: var(--worker-card-radius);
+    }
+    .worker__link svg { width: 50%; height: 50%; }
+    .worker__card:hover .worker__link { filter: saturate(1.25) brightness(.95); }
+
+    /* 하단 CTA : 메인 비주얼 .btn-cta 스타일 재사용, 크기만 변수로 교체 */
+    .worker__more {
+      display: flex;
+      justify-content: center;
+      margin-top: var(--worker-cta-mt);
+    }
+    .btn-cta.worker__cta {
+      width: var(--worker-cta-w);
+      max-width: none;
+      height: var(--worker-cta-h);
+      padding: 0 24px;
+      font-size: var(--worker-cta-size);
+      line-height: 1.5;
+      letter-spacing: -0.02em;
+    }
+
+    /* Tablet : 1024px 이하 (구조 동일, 간격/크기 축소 · 약병은 카드 아래로 이동 · 배경 번짐 제거) */
+    @media (max-width: 1024px) {
+      .worker {
+        --worker-pt: 136px;
+        --worker-pb: 120px;
+        --worker-side: 36px;
+        --worker-gap: 20px;
+        --worker-card-pad: 26px;
+        --worker-card-radius: 24px;
+        --worker-photo-radius: 16px;
+        --worker-title-gap: 24px;
+        --worker-desc-size: clamp(13px, 1.72vw, 17.6px);
+        --worker-list-mt: 42px;
+        --worker-photo-gap: 24px;
+        --worker-text-size: clamp(13px, 1.56vw, 16px);
+        --worker-meta-mt: 16px;
+        --worker-meta-size: clamp(12px, 1.3vw, 14px);
+        --worker-sep-gap: 10px;
+        --worker-arrow: 32px;
+        --worker-cta-mt: 39px;
+        --worker-cta-w: 300px;
+        --worker-cta-h: 63px;
+        --worker-cta-size: 19px;
+        background: #fdf5f2;
+      }
+      .worker__logo { left: -87px; top: -43px; width: 82px; }
+      .worker__char { top: 30px; width: clamp(140px, 20vw, 220px); }
+      .worker__bottle { left: 9vw; bottom: 40px; width: clamp(120px, 15.8vw, 162px); }
+    }
+
+    /* Mobile : 600px 이하 (1열 카드, 문장은 자연 줄바꿈, 약병 제거) */
+    @media (max-width: 600px) {
+      .worker {
+        --worker-pt: 124px;
+        --worker-pb: 32px;
+        --worker-side: 24px;
+        --worker-gap: 16px;
+        --worker-card-pad: 24px;
+        --worker-title-gap: 12px;
+        --worker-desc-size: 12px;
+        --worker-desc-pad: 0px;
+        --worker-list-mt: 20px;
+        --worker-photo-gap: 20px;
+        --worker-text-size: 11.5px;
+        --worker-meta-mt: 12px;
+        --worker-meta-size: 11px;
+        --worker-sep-gap: 8px;
+        --worker-arrow: 24px;
+        --worker-cta-mt: 24px;
+        --worker-cta-w: 200px;
+        --worker-cta-h: 44px;
+        --worker-cta-size: 14px;
+      }
+      .worker__logo { left: -51px; top: -44px; width: 76px; }
+      .worker__char { top: 24px; width: clamp(110px, 31.8vw, 150px); }
+      .worker__bottle { display: none; }
+      .worker__list { grid-template-columns: minmax(0, 1fr); }
+      .worker__text { line-height: 1.5; letter-spacing: -0.05em; word-break: break-all; }   /* 시안처럼 글자 단위로 이어서 줄바꿈 */
+      .worker__line { display: inline; }   /* 카드 폭에 맞춰 이어서 줄바꿈 */
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .worker__card,
+      .worker__link { transition: none; }
+      .worker__card:hover { transform: none; }
+    }
+
